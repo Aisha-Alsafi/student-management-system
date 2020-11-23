@@ -8,6 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Set;
 
 @Path("student")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -62,5 +63,10 @@ public class StudentRest {
    }
 
 
+    @Path("getStudentsBySubject/{subjectname}")
+    @GET
+    public Set<Student> getStudentsForSubject(@PathParam("subjectname") String subject) {
+        return studentService.getStudentsBySubject(subject);
+    }
 
 }

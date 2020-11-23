@@ -1,11 +1,10 @@
 package se.iths.entity;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -23,6 +22,9 @@ public class Student {
     private String phoneNumber;
 
 
+    @ManyToMany( cascade =CascadeType.PERSIST)
+    private Set<Subject> subjects=new HashSet<>();
+
     public Student() {
     }
 
@@ -31,6 +33,25 @@ public class Student {
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+
+    public void addSubject(Subject subject){
+        subjects.add(subject);
+        subject.getStudents().add(this);
+    }
+
+    public void removeSubject(Subject subject){
+        subjects.remove(subject);
+        subject.getStudents().remove(this);
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     public Long getId() {

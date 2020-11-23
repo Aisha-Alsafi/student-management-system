@@ -1,7 +1,10 @@
 package se.iths.service;
 
 import se.iths.entity.Student;
+import se.iths.entity.Subject;
+
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -42,5 +45,18 @@ public class StudentService {
         Student deleteThisStudent = entityManager.find(Student.class, id);
         entityManager.remove(deleteThisStudent);
     }
+
+
+    public Set<Student> getStudentsBySubject(String subjectName) {
+        Subject subject = (Subject) entityManager
+                .createQuery("SELECT DISTINCT i FROM Subject i " +
+                        "INNER JOIN i.students s " +
+                        "WHERE i.subjectName = :subjectName ")
+                .setParameter("subjectName", subjectName).getSingleResult();
+        Set<Student> studentsResult = subject.getStudents();
+        return studentsResult;
+    }
+
+
 
 }
