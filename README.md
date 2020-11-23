@@ -2,6 +2,8 @@
 Starting project | Java EE assignment | JU19 | ITHS
 StudentManagement REST Endpoints are :
 
+Labb 1
+
 -----------------To create a new Student-----------------
 POST    http://localhost:8080/StudentManagement/api/v1/student/create
 Return a json formatted student record.
@@ -36,5 +38,34 @@ return a modified student record.
 DELETE  http://localhost:8080/StudentManagement/api/v1/student/deleteStudent/{id}
 Return a message with confirmation if a delete success. 
 If ID is not in the database, you get 400 Not found request with a message (Student with ID {id} was successfully deleted.) as answer.
+
+
+
+labb 2
+I added a new Entities( Teacher and Subject).
+
+We kan get students list by subject name.
+
+GET     http://localhost:8080/StudentManagement/api/v1/student/getStudentsBySubject/{subjectname}
+
+
+-----------------Subject-----------------
+{
+	"subjectName":"Matte"	
+}
+ 
+ 
+POST    http://localhost:8080/StudentManagement/api/v1/subject/create
+GET     http://localhost:8080/StudentManagement/api/v1/subject/getall
+PUT     http://localhost:8080/StudentManagement/api/v1/subject/update
+
+-----------------Teacher-----------------
+{
+	"teacherName":"Olof"	
+}
+
+POST    http://localhost:8080/StudentManagement/api/v1/teacher/create
+GET     http://localhost:8080/StudentManagement/api/v1/teacher/getall
+PUT     http://localhost:8080/StudentManagement/api/v1/teacher/update
 
 
