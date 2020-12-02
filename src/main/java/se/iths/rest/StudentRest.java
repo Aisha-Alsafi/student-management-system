@@ -69,4 +69,15 @@ public class StudentRest {
         return studentService.getStudentsBySubject(subject);
     }
 
+    @Path("getStudentsBySubjectAndTeacher/{subjectName}/{teacherName}")
+    @GET
+    public Response getStudentsBySubjectAndTeacher(@PathParam("subjectName") String subjectName,@PathParam("teacherName") String teacherName){
+        Set<Student> students = studentService.getStudentsBySubjectAndTeacher(subjectName, teacherName);
+        if (students != null) {
+            return Response.ok(students).build();
+        } else {
+            throw new StudentNotFoundException("Student in subject  " + subjectName +"  with teacher name  " + teacherName + " not found.");
+        }
+    }
+
 }

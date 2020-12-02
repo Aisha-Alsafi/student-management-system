@@ -57,6 +57,16 @@ public class StudentService {
         return studentsResult;
     }
 
+   public Set<Student> getStudentsBySubjectAndTeacher(String subjectName, String teacherName) {
 
-
+        Subject subject = (Subject) entityManager
+                .createQuery("SELECT DISTINCT i FROM Subject i " +
+                        "INNER JOIN i.teacher t" +
+                        " INNER JOIN i.students s" +
+                        " WHERE t.teacherName = :teacherName " +
+                        "AND i.subjectName =:subjectName")
+                .setParameter("teacherName", teacherName).setParameter("subjectName", subjectName).getSingleResult();
+        Set<Student> studentsResult = subject.getStudents();
+        return studentsResult;
+    }
 }
